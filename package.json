@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite-node --watch src/server.mts",
+    "lint": "npm run eslint && npm run markdownlint",
     "build": "tsc --project tsconfig.build.json",
+    "eslint": "eslint src --report-unused-disable-directives --max-warnings 0",
+    "markdownlint": " markdownlint **/*.md -i node_modules/",
     "start": "node dist/server.js"
   },
   "devDependencies": {
