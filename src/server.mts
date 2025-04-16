@@ -2,11 +2,11 @@
 import express from "express";
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT ?? 3001;
 
 app.use(express.json());
 
-app.get("/", async (_req, res, next) => {
+app.get("/", (_req, res, next) => {
   try {
     res.send("ok");
   } catch (err) {
@@ -27,5 +27,5 @@ app.use(
 );
 
 app.listen(port, () => {
-  console.log(`🚀 Proxy server listening at http://localhost:${port}`);
+  console.log(`🚀 Proxy server listening at http://localhost:${port.toString()}`);
 });
