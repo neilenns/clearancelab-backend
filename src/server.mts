@@ -1,5 +1,9 @@
 // server.ts
 import express from "express";
+import fs from 'fs';
+import https from 'https';
+import http, { RequestListener } from 'http';
+import path from 'path';
 
 const app = express();
 const port = process.env.PORT ?? 3001;
@@ -26,6 +30,21 @@ app.use(
   }
 );
 
-app.listen(port, () => {
-  console.log(`🚀 Proxy server listening at http://localhost:${port.toString()}`);
-});
+
+const keyPath = process.env.SSL_KEY_PATH;
+const certPath = process.env.SSL_CERT_PATH;
+
+if (keyPath && certPath) {
+  const sslOptions = {
+    key: fs.readFileSync(path.resolve(keyPath)),
+    cert: fs.readFileSync(path.resolve(certPath)),
+  };
+
+  https.createServer(sslOptions, app as RequestListener).listen(port, () => {
+    console.log(`🔒 HTTPS server listening on https://localhost:${port.toString()}`);
+  });
+} else {
+  http.createServer(app as RequestListener).listen(port, () => {
+    console.log(`🌐 HTTP server listening on http://localhost:${port.toString()}`);
+  });
+}
