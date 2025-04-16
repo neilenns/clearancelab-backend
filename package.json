@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite-node --watch src/server.mts",
+    "dev": "vite-node --watch src/main.mts",
     "lint": "npm run eslint && npm run markdownlint",
     "build": "tsc --project tsconfig.build.json",
     "eslint": "eslint src --report-unused-disable-directives --max-warnings 0",

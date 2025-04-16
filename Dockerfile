@@ -46,4 +46,4 @@ RUN echo $VERSION
 RUN mkdir /cache
 
 # Set the entrypoint file
-CMD ["node", "dist/server.mjs"]
+CMD ["node", "dist/main.mjs"]
