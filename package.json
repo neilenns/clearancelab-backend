@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite-node --watch src/server.ts",
+    "dev": "vite-node --watch src/server.mts",
     "build": "tsc --project tsconfig.build.json",
     "start": "node dist/server.js"
   },
