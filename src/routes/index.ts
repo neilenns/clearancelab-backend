@@ -1,8 +1,8 @@
 import express from "express";
 
 // Routes
-import defaultRouter from "#routes/default.js";
-import scenarioRoutes from "#routes/scenarios.js";
+import defaultRouter from "./default.js";
+import scenarioRoutes from "./scenarios.js";
 
 /**
  * Registers all application routes with the Express application.

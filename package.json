@@ -27,9 +27,6 @@
   },
   "homepage": "https://github.com/neilenns/flightplan-backend#readme",
   "description": "Backend for the flightplan website.",
-  "imports": {
-    "#*": "./src/*"
-  },
   "dependencies": {
     "express": "^5.1.0",
     "helmet": "^8.1.0",
