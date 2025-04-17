@@ -99,10 +99,18 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
   }
 );
 
-// Add a virtual field for airportInfo
-ScenarioSchema.virtual("airportInfo", {
+// Add a virtual field for departure airport information
+ScenarioSchema.virtual("depAirportInfo", {
   ref: "AirportInfo", // The model to use
   localField: "plan.dep", // Field in Scenario to match
+  foreignField: "airportCode", // Field in AirportInfo to match
+  justOne: true, // Only one airport info per scenario
+});
+
+// Add a virtual field for destination airport information
+ScenarioSchema.virtual("destAirportInfo", {
+  ref: "AirportInfo", // The model to use
+  localField: "plan.dest", // Field in Scenario to match
   foreignField: "airportCode", // Field in AirportInfo to match
   justOne: true, // Only one airport info per scenario
 });
@@ -117,7 +125,8 @@ ScenarioSchema.statics.findScenarioById = function (
 ): Promise<ScenarioData | null> {
   try {
     return this.findById(id)
-      .populate("airportInfo") // Populate the airportInfo field
+      .populate("depAirportInfo") // Populate the departure airport info
+      .populate("destAirportInfo") // Populate the destination airport info
       .lean()
       .exec();
   } catch (error) {
