@@ -1,10 +1,9 @@
-import { Document, Model, Schema, model } from "mongoose";
-import { nanoid } from "nanoid";
+import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 
 // Combined schema data interface
 export interface ScenarioData {
-  _id: string;
+  _id: Types.ObjectId;
   plan: {
     pilotName?: string;
     aid: string;
@@ -35,26 +34,15 @@ export interface ScenarioData {
   isValid?: boolean;
 }
 
-// Full document type
-export interface ScenarioDocument
-  extends Omit<ScenarioData, "_id">,
-    Document<string> {
-  _id: string;
-}
-
 // Static method interface
-export interface ScenarioModelType extends Model<ScenarioDocument> {
-  findScenarioById(id: string): Promise<ScenarioDocument | null>;
-  findAll(): Promise<ScenarioDocument[]>;
+export interface ScenarioModelType extends Model<ScenarioData> {
+  findScenarioById(id: string): Promise<ScenarioData | null>;
+  findAll(): Promise<ScenarioData[]>;
 }
 
 // Define schema
-const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
+const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
   {
-    _id: {
-      type: String,
-      default: () => nanoid(),
-    },
     plan: {
       pilotName: { type: String },
       aid: { type: String, required: true },
@@ -113,7 +101,7 @@ const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string
-): Promise<ScenarioDocument | null> {
+): Promise<ScenarioData | null> {
   try {
     return this.findById(id).lean().exec();
   } catch (error) {
@@ -122,12 +110,12 @@ ScenarioSchema.statics.findScenarioById = function (
   }
 };
 
-ScenarioSchema.statics.findAll = function (): Promise<ScenarioDocument[]> {
+ScenarioSchema.statics.findAll = function (): Promise<ScenarioData[]> {
   return this.find({}).lean().exec();
 };
 
 // Export model
-export const ScenarioModel = model<ScenarioDocument, ScenarioModelType>(
+export const ScenarioModel = model<ScenarioData, ScenarioModelType>(
   "Scenario",
   ScenarioSchema
 );

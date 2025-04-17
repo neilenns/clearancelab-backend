@@ -10,5 +10,5 @@ import scenarioRoutes from "./scenarios.js";
  */
 export default function addRoutes(app: express.Express) {
   app.use(defaultRouter);
-  app.use(scenarioRoutes);
+  app.use("/scenarios", scenarioRoutes);
 }
