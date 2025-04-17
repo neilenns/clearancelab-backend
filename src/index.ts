@@ -12,7 +12,7 @@ import { logger } from "./lib/logger.js";
 const app = express();
 const port = ENV.PORT;
 
-logger.info(`Starting backend ${process.env.VERSION ?? ""}`);
+logger.info(`Starting backend ${ENV.VERSION}`);
 
 void (async () => {
   await connectToDatabase().catch(() => {
