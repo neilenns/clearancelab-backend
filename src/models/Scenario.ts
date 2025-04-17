@@ -1,5 +1,7 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
+import "./AirportInfo.js";
+import { AirportInfoData } from "./AirportInfo.js";
 
 // Combined schema data interface
 export interface ScenarioData {
@@ -13,7 +15,9 @@ export interface ScenarioData {
     eq: string;
     bcn?: number;
     dep: string;
+    depAirportInfo?: AirportInfoData;
     dest: string;
+    destAirportInfo?: AirportInfoData;
     spd?: number;
     alt: number;
     rte: string;
@@ -98,12 +102,36 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
   }
 );
 
+// Add a virtual field for departure airport information
+ScenarioSchema.virtual("depAirportInfo", {
+  ref: "AirportInfo", // The model to use
+  localField: "plan.dep", // Field in Scenario to match
+  foreignField: "airportCode", // Field in AirportInfo to match
+  justOne: true, // Only one airport info per scenario
+});
+
+// Add a virtual field for destination airport information
+ScenarioSchema.virtual("destAirportInfo", {
+  ref: "AirportInfo", // The model to use
+  localField: "plan.dest", // Field in Scenario to match
+  foreignField: "airportCode", // Field in AirportInfo to match
+  justOne: true, // Only one airport info per scenario
+});
+
+// Ensure virtuals are included when converting to JSON or Object
+ScenarioSchema.set("toObject", { virtuals: true });
+ScenarioSchema.set("toJSON", { virtuals: true });
+
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string
 ): Promise<ScenarioData | null> {
   try {
-    return this.findById(id).lean().exec();
+    return this.findById(id)
+      .populate("depAirportInfo") // Populate the departure airport info
+      .populate("destAirportInfo") // Populate the destination airport info
+      .lean()
+      .exec();
   } catch (error) {
     logger.error(`Error finding scenario with ID ${id}:`, error);
     return Promise.resolve(null);
