@@ -1,13 +1,35 @@
 import { Document, Model, Schema, model } from "mongoose";
-import { CraftData } from "./craft.js";
-import { FlightPlanData } from "./flightPlan.js";
 import { nanoid } from "nanoid";
 
-// Schema data interface
+// Combined schema data interface
 export interface ScenarioData {
   _id: string;
-  plan: FlightPlanData;
-  craft?: CraftData;
+  plan: {
+    pilotName?: string;
+    aid: string;
+    vatsimId?: number;
+    cid?: number;
+    typ: string;
+    eq: string;
+    bcn?: number;
+    dep: string;
+    dest: string;
+    spd?: number;
+    alt: number;
+    rte: string;
+    rmk?: string;
+    raw?: string;
+    airportConditions?: string;
+  };
+  craft?: {
+    altitude?: string;
+    clearanceLimit?: string;
+    controllerName?: string;
+    frequency?: string;
+    route?: string;
+    telephony?: string;
+    transponder?: string;
+  };
   problems?: string[];
   isValid?: boolean;
 }
@@ -32,8 +54,52 @@ const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
       type: String,
       default: () => nanoid(9),
     },
-    plan: { type: Schema.Types.ObjectId, ref: "FlightPlan", required: true },
-    craft: { type: Schema.Types.ObjectId, ref: "Craft" },
+    plan: {
+      pilotName: { type: String },
+      aid: { type: String, required: true },
+      vatsimId: { type: Number },
+      cid: { type: Number },
+      typ: { type: String, required: true },
+      eq: { type: String, required: true },
+      bcn: { type: Number },
+      dep: { type: String, required: true },
+      dest: { type: String, required: true },
+      spd: { type: Number },
+      alt: {
+        type: Number,
+        required: true,
+        min: [0, "Altitude cannot be negative"],
+      },
+      rte: { type: String, required: true },
+      rmk: { type: String },
+      raw: { type: String },
+      airportConditions: { type: String },
+    },
+    craft: {
+      altitude: { type: String, trim: true },
+      clearanceLimit: { type: String, trim: true },
+      controllerName: { type: String, trim: true },
+      frequency: {
+        type: String,
+        trim: true,
+        validate: {
+          validator: (v: string) => /^\d{3}\.\d{2,3}$/.test(v),
+          message: (props: { value: string }) =>
+            `${props.value} is not a valid frequency format.`,
+        },
+      },
+      route: { type: String, trim: true },
+      telephony: { type: String, trim: true },
+      transponder: {
+        type: String,
+        trim: true,
+        validate: {
+          validator: (v: string) => /^\d{4}$/.test(v),
+          message: (props: { value: string }) =>
+            `${props.value} is not a valid transponder code.`,
+        },
+      },
+    },
     problems: [{ type: String }],
     isValid: { type: Boolean },
   },
