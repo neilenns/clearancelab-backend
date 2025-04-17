@@ -17,4 +17,25 @@ router.get(
   }
 );
 
+// Add a route to look up a scenario by ID
+router.get(
+  "/scenarios/:id",
+  verifyApiKey,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const scenario = await ScenarioModel.findScenarioById(id);
+
+      if (!scenario) {
+        res.status(404).json({ error: "Scenario not found" });
+        return;
+      }
+
+      res.json(scenario);
+    } catch (err) {
+      next(err); // Pass to centralized error handler
+    }
+  }
+);
+
 export default router;
