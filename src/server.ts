@@ -6,21 +6,27 @@ import http, { RequestListener } from "http";
 import path from "path";
 import { ENV } from "./lib/env";
 import applyMiddleware from "./middleware/index"; // adjust path as needed
+import { connectToDatabase } from "./db/connect";
 
 // Routes
 import defaultRouter from "./routes/default";
-import { connectToDatabase } from "./db/connect";
+import scenarioRoutes from "./routes/scenarios";
 
 const app = express();
 const port = ENV.PORT;
 
-await connectToDatabase();
+void (async () => {
+  await connectToDatabase().catch(() => {
+    console.error(`Unable to connect to database`);
+  });
+})();
 
 app.set("trust proxy", ENV.TRUST_PROXY);
 applyMiddleware(app);
 
 // Set up the routes
 app.use(defaultRouter);
+app.use(scenarioRoutes);
 
 const keyPath = ENV.SSL_PRIVATE_KEY_PATH;
 const certPath = ENV.SSL_FULL_CHAIN_PATH;

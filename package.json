@@ -2,9 +2,9 @@
   "name": "flightplan-backend",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "dev": "vite-node --watch src/server.ts",
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
     "lint": "npm run eslint && npm run markdownlint",
     "build": "tsc --project tsconfig.build.json",
     "eslint": "eslint src --report-unused-disable-directives --max-warnings 0",
@@ -14,16 +14,16 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
     "eslint": "^9.24.0",
     "eslint-prettier-config": "^1.0.1",
     "markdownlint": "^0.37.4",
     "markdownlint-cli": "^0.44.0",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.0",
-    "vite-node": "^3.1.1"
+    "typescript-eslint": "^8.30.1"
   },
   "dependencies": {
     "@typegoose/typegoose": "^12.14.0",
