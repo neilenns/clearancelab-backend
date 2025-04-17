@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { ApiKeyModel } from "../models/apiKey.js";
 import rateLimit from "express-rate-limit";
+import { ApiKeyModel } from "../models/ApiKey.js";
 
 const apiKeyLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

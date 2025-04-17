@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
-import { ScenarioModel } from "../models/scenario.js";
+import { ScenarioModel } from "../models/Scenario.js";
 
 const router = Router();
 
