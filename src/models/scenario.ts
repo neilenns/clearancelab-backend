@@ -1,5 +1,6 @@
 import { Document, Model, Schema, model } from "mongoose";
 import { nanoid } from "nanoid";
+import { logger } from "../lib/logger.js";
 
 // Combined schema data interface
 export interface ScenarioData {
@@ -52,7 +53,7 @@ const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
   {
     _id: {
       type: String,
-      default: () => nanoid(9),
+      default: () => nanoid(),
     },
     plan: {
       pilotName: { type: String },
@@ -116,7 +117,7 @@ ScenarioSchema.statics.findScenarioById = function (
   try {
     return this.findById(id).lean().exec();
   } catch (error) {
-    console.error(`Error finding scenario with ID ${id}:`, error);
+    logger.error(`Error finding scenario with ID ${id}:`, error);
     return Promise.resolve(null);
   }
 };
