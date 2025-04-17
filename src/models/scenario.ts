@@ -1,6 +1,6 @@
 import { Document, Model, Schema, model } from "mongoose";
-import { CraftData, CraftSchema } from "./craft.js";
-import { FlightPlanData, FlightPlanSchema } from "./flightPlan.js";
+import { CraftData } from "./craft.js";
+import { FlightPlanData } from "./flightPlan.js";
 
 // Schema data interface
 export interface ScenarioData {
@@ -22,8 +22,8 @@ export interface ScenarioModelType extends Model<ScenarioDocument> {
 // Define schema
 const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
   {
-    plan: { type: FlightPlanSchema, required: true },
-    craft: { type: CraftSchema },
+    plan: { type: Schema.Types.ObjectId, ref: "FlightPlan", required: true },
+    craft: { type: Schema.Types.ObjectId, ref: "Craft" },
     problems: [{ type: String }],
     isValid: { type: Boolean },
   },
@@ -37,7 +37,12 @@ const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
 ScenarioSchema.statics.findScenarioById = function (
   id: string
 ): Promise<ScenarioDocument | null> {
-  return this.findById(id).lean().exec();
+  try {
+    return this.findById(id).lean().exec();
+  } catch (error) {
+    console.error(`Error finding scenario with ID ${id}:`, error);
+    return Promise.resolve(null);
+  }
 };
 
 ScenarioSchema.statics.findAll = function (): Promise<ScenarioDocument[]> {

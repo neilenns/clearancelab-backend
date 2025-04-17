@@ -1,4 +1,4 @@
-import { Document, Model, Schema, model } from "mongoose";
+import { Document, Model, model, Schema, ValidatorProps } from "mongoose";
 
 export interface CraftData {
   altitude?: string;
@@ -23,10 +23,30 @@ export const CraftSchema = new Schema<CraftDocument, CraftModelType>({
   altitude: { type: String, trim: true },
   clearanceLimit: { type: String, trim: true },
   controllerName: { type: String, trim: true },
-  frequency: { type: String, trim: true },
+  frequency: {
+    type: String,
+    trim: true,
+    validate: {
+      validator: (v: string) => /^\d{3}.\d{2,3}$/.test(v),
+      message: (props: ValidatorProps) =>
+        `${props.value as string} is not a valid frequency format.`,
+    },
+  },
   route: { type: String, trim: true },
   telephony: { type: String, trim: true },
-  transponder: { type: String, trim: true },
+  transponder: {
+    type: String,
+    trim: true,
+    transponder: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: (v: string) => /^\d{4}$/.test(v),
+        message: (props: ValidatorProps) =>
+          `${props.value as string} is not a valid transponder code.`,
+      },
+    },
+  },
 });
 
 // Model

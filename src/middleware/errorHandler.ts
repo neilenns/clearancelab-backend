@@ -1,4 +1,3 @@
-// src/routes/errorHandler.ts
 import type { ErrorRequestHandler } from "express";
 
 const errorHandler: ErrorRequestHandler = (err: Error, _req, res, _next) => {

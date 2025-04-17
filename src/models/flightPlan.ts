@@ -41,7 +41,11 @@ export const FlightPlanSchema = new Schema<
   dep: { type: String, required: true },
   dest: { type: String, required: true },
   spd: { type: Number },
-  alt: { type: Number, required: true },
+  alt: {
+    type: Number,
+    required: true,
+    min: [0, "Altitude cannot be negative"],
+  },
   rte: { type: String, required: true },
   rmk: { type: String },
   raw: { type: String },
