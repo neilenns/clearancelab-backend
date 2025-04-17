@@ -8,7 +8,7 @@ export async function connectToDatabase(): Promise<void> {
   );
 
   mongoose.set("debug", function (collectionName, method, query, _doc) {
-    logger.info(`[${collectionName}.${method}] ${JSON.stringify(query)}`);
+    logger.debug(`[${collectionName}.${method}] ${JSON.stringify(query)}`);
   });
 
   await mongoose.connect(ENV.MONGO_DB_CONNECTION_STRING, {
