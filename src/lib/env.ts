@@ -7,6 +7,9 @@ const envSchema = z.object({
     .string()
     .url({ message: "Invalid MongoDB connection string format" }),
   MONGO_DB_NAME: z.string().default("plan-verifier"),
+  NODE_ENV: z
+    .enum(["development", "test", "production"])
+    .default("development"),
   PORT: z.coerce.number().default(3001),
   TRUST_PROXY: z.coerce.number().default(0),
   VERSION: z.string().default("dev"),
