@@ -30,15 +30,19 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
+    "express-winston": "^4.2.0",
     "helmet": "^8.1.0",
+    "logform": "^2.7.0",
     "mongoose": "^8.13.2",
     "nanoid": "^5.1.5",
+    "winston": "^3.17.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/express": "^5.0.1",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^22.14.1",
     "eslint": "^9.24.0",
     "eslint-plugin-perfectionist": "^4.11.0",

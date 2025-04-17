@@ -52,7 +52,7 @@ const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
   {
     _id: {
       type: String,
-      default: () => nanoid(9),
+      default: () => nanoid(),
     },
     plan: {
       pilotName: { type: String },

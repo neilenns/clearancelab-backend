@@ -7,13 +7,16 @@ import { connectToDatabase } from "./db/connect.js";
 import { ENV } from "./lib/env.js";
 import applyMiddleware from "./middleware/index.js";
 import addRoutes from "./routes/index.js";
+import { logger } from "./lib/logger.js";
 
 const app = express();
 const port = ENV.PORT;
 
+logger.info(`Starting backend ${process.env.VERSION ?? ""}`);
+
 void (async () => {
   await connectToDatabase().catch(() => {
-    console.error(`Unable to connect to database`);
+    logger.error(`Unable to connect to database`);
   });
 })();
 
@@ -33,13 +36,13 @@ if (keyPath && certPath) {
   };
 
   https.createServer(sslOptions, app as RequestListener).listen(port, () => {
-    console.log(
+    logger.info(
       `🔒 HTTPS server listening on https://localhost:${port.toString()}`
     );
   });
 } else {
   http.createServer(app as RequestListener).listen(port, () => {
-    console.log(
+    logger.info(
       `🌐 HTTP server listening on http://localhost:${port.toString()}`
     );
   });
