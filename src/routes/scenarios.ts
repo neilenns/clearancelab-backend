@@ -1,9 +1,10 @@
 import express from "express";
 import { ScenarioModel } from "../models/scenario.js";
+import { verifyApiKey } from "../middleware/apikey.js";
 
 const router = express.Router();
 
-router.get("/scenarios", async (_req, res, next) => {
+router.get("/scenarios", verifyApiKey, async (_req, res, next) => {
   try {
     const scenarios = await ScenarioModel.findAll();
     res.json(scenarios);
