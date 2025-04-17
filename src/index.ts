@@ -5,7 +5,7 @@ import https from "https";
 import path from "path";
 import { connectToDatabase } from "./db/connect.js";
 import { ENV } from "./lib/env.js";
-import applyMiddleware from "./middleware/index.js"; // adjust path as needed
+import applyMiddleware from "./middleware/index.js";
 import addRoutes from "./routes/index.js";
 
 const app = express();
