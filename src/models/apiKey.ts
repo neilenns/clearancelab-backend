@@ -14,6 +14,7 @@ const ApiKeySchema = new Schema<ApiKeyDocument>(
   },
   {
     collection: "apikeys", // Custom collection name
+    timestamps: true,
   }
 );
 

@@ -1,9 +1,15 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { ApiKeyModel } from "../models/apiKey.js";
+import rateLimit from "express-rate-limit";
 
-// Verifies that a valid api key was provided in the web request. This gets
-// used on all routes on the server.
-export const verifyApiKey = async function (
+const apiKeyLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { error: "Too many attempts, please try again later" },
+});
+
+// Verifies that a valid api key was provided in the web request.
+export const verifyApiKeyRaw = async function (
   req: Request,
   res: Response,
   next: NextFunction
@@ -28,12 +34,11 @@ export const verifyApiKey = async function (
       return;
     }
   } catch (err) {
-    const error = err as Error;
-
-    console.error(`Unable to verify API key: ${error.message}`, error);
-    res.status(500).json({ error: "Internal Server Error" });
+    next(err);
     return;
   }
 
   next();
 };
+
+export const verifyApiKey = [apiKeyLimiter, verifyApiKeyRaw];
