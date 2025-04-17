@@ -1,12 +1,12 @@
-import { connectToDatabase } from "#db/connect.js";
-import { ENV } from "#lib/env.js";
-import applyMiddleware from "#middleware/index.js"; // adjust path as needed
-import addRoutes from "#routes/index.js";
 import express from "express";
 import fs from "fs";
 import http, { RequestListener } from "http";
 import https from "https";
 import path from "path";
+import { connectToDatabase } from "./db/connect.js";
+import { ENV } from "./lib/env.js";
+import applyMiddleware from "./middleware/index.js"; // adjust path as needed
+import addRoutes from "./routes/index.js";
 
 const app = express();
 const port = ENV.PORT;

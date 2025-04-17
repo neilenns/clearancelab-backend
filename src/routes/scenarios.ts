@@ -1,5 +1,5 @@
-import { ScenarioModel } from "#models/scenario.js";
 import express from "express";
+import { ScenarioModel } from "../models/scenario.js";
 
 const router = express.Router();
 
