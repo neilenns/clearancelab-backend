@@ -15,9 +15,7 @@ export interface ScenarioData {
     eq: string;
     bcn?: number;
     dep: string;
-    depAirportInfo?: AirportInfoData;
     dest: string;
-    destAirportInfo?: AirportInfoData;
     spd?: number;
     alt: number;
     rte: string;
@@ -34,6 +32,8 @@ export interface ScenarioData {
     telephony?: string;
     transponder?: string;
   };
+  depAirportInfo?: AirportInfoData;
+  destAirportInfo?: AirportInfoData;
   problems?: string[];
   isValid?: boolean;
 }
