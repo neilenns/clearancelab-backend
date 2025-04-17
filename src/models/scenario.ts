@@ -1,9 +1,11 @@
 import { Document, Model, Schema, model } from "mongoose";
 import { CraftData } from "./craft.js";
 import { FlightPlanData } from "./flightPlan.js";
+import { nanoid } from "nanoid";
 
 // Schema data interface
 export interface ScenarioData {
+  _id: string;
   plan: FlightPlanData;
   craft?: CraftData;
   problems?: string[];
@@ -11,7 +13,11 @@ export interface ScenarioData {
 }
 
 // Full document type
-export interface ScenarioDocument extends ScenarioData, Document {}
+export interface ScenarioDocument
+  extends Omit<ScenarioData, "_id">,
+    Document<string> {
+  _id: string;
+}
 
 // Static method interface
 export interface ScenarioModelType extends Model<ScenarioDocument> {
@@ -22,6 +28,10 @@ export interface ScenarioModelType extends Model<ScenarioDocument> {
 // Define schema
 const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
   {
+    _id: {
+      type: String,
+      default: () => nanoid(9),
+    },
     plan: { type: Schema.Types.ObjectId, ref: "FlightPlan", required: true },
     craft: { type: Schema.Types.ObjectId, ref: "Craft" },
     problems: [{ type: String }],
