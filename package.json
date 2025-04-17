@@ -32,7 +32,6 @@
     "helmet": "^8.1.0",
     "mongoose": "^8.13.2",
     "nanoid": "^5.1.5",
-    "speedgoose": "^2.1.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
