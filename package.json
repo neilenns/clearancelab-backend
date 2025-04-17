@@ -1,39 +1,51 @@
 {
   "name": "flightplan-backend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "commonjs",
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
-    "lint": "npm run eslint && npm run markdownlint",
-    "build": "tsc --project tsconfig.build.json",
-    "eslint": "eslint src --report-unused-disable-directives --max-warnings 0",
-    "markdownlint": " markdownlint **/*.md -i node_modules/",
-    "start": "node dist/server.js"
+    "dev": "tsx --watch --env-file .env.local src/index.ts",
+    "start": "node --env-file .env.local dist/index.js",
+    "build": "tsc",
+    "build:docker": "docker build -t flightplan-backend .",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.14.1",
-    "eslint": "^9.24.0",
-    "eslint-prettier-config": "^1.0.1",
-    "markdownlint": "^0.37.4",
-    "markdownlint-cli": "^0.44.0",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.30.1"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neilenns/flightplan-backend.git"
+  },
+  "keywords": [],
+  "author": "Neil Enns",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neilenns/flightplan-backend/issues"
+  },
+  "homepage": "https://github.com/neilenns/flightplan-backend#readme",
+  "description": "Backend for the flightplan website.",
+  "imports": {
+    "#*": "./src/*"
   },
   "dependencies": {
-    "@typegoose/typegoose": "^12.14.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "eslint-config-prettier": "^10.1.2",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "mongoose": "^8.13.2",
     "nanoid": "^5.1.5",
     "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@tsconfig/node22": "^22.0.1",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "eslint": "^9.24.0",
+    "eslint-plugin-perfectionist": "^4.11.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1"
   }
 }

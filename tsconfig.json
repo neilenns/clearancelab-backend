@@ -1,21 +1,11 @@
 {
+  "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
-    /* Core output behavior */
-    "module": "CommonJS",
-    "target": "ES2020",
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-
-    /* Type extensions */
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "outDir": "./dist",
+    "rootDir": "./"
   },
-  "include": ["src"]
+  "include": ["**/*.ts"],
+  "exclude": ["dist"]
 }

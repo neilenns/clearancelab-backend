@@ -6,6 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers-extra/features/typescript:2": {},
     "ghcr.io/neilenns/devcontainer-features/oh-my-zsh": {
       "theme": "agnoster",
@@ -25,7 +26,9 @@
         "streetsidesoftware.code-spell-checker",
         "jock.svg",
         "antfu.file-nesting",
-        "mongodb.mongodb-vscode"
+        "mongodb.mongodb-vscode",
+        "humao.rest-client",
+        "ms-azuretools.vscode-docker"
       ]
     }
   },

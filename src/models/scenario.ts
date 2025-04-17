@@ -1,56 +1,51 @@
-import {
-  getModelForClass,
-  modelOptions,
-  prop,
-  ReturnModelType,
-} from "@typegoose/typegoose";
-import { nanoid } from "nanoid";
-import { Craft } from "./craft";
-import { FlightPlan } from "./flightPlan";
+import { Document, Model, Schema, model } from "mongoose";
+import { CraftData, CraftSchema } from "./craft.js";
+import { FlightPlanData, FlightPlanSchema } from "./flightPlan.js";
 
-@modelOptions({
-  schemaOptions: {
-    collection: "scenarios", // For some reason, in production, without this the collection name was random.
-    timestamps: true,
-  },
-})
-export class Scenario {
-  @prop({ default: () => nanoid(9) })
-  _id!: string;
-
-  @prop({ required: true }) plan!: FlightPlan;
-
-  @prop() craft?: Craft;
-
-  @prop({ type: () => [String] }) problems?: string[];
-
-  @prop() isValid?: boolean;
-
-  // Static methods
-  static async findScenarioById(
-    this: ReturnModelType<typeof Scenario>,
-    _id: string
-  ): Promise<Scenario | null> {
-    try {
-      const result = await this.findOne({ _id }).lean();
-      return result;
-    } catch (error) {
-      console.error(`Error fetching scenario ${_id}:`, error);
-      throw error;
-    }
-  }
-
-  static async findAll(
-    this: ReturnModelType<typeof Scenario>
-  ): Promise<Scenario[] | null> {
-    try {
-      const result = await this.find({}).lean();
-      return result;
-    } catch (error) {
-      console.error(`Error fetching scenarios:`, error);
-      throw error;
-    }
-  }
+// Schema data interface
+export interface ScenarioData {
+  plan: FlightPlanData;
+  craft?: CraftData;
+  problems?: string[];
+  isValid?: boolean;
 }
 
-export const ScenarioModel = getModelForClass(Scenario);
+// Full document type
+export interface ScenarioDocument extends ScenarioData, Document {}
+
+// Static method interface
+export interface ScenarioModelType extends Model<ScenarioDocument> {
+  findScenarioById(id: string): Promise<ScenarioDocument | null>;
+  findAll(): Promise<ScenarioDocument[]>;
+}
+
+// Define schema
+const ScenarioSchema = new Schema<ScenarioDocument, ScenarioModelType>(
+  {
+    plan: { type: FlightPlanSchema, required: true },
+    craft: { type: CraftSchema },
+    problems: [{ type: String }],
+    isValid: { type: Boolean },
+  },
+  {
+    collection: "scenarios",
+    timestamps: true,
+  }
+);
+
+// Static methods
+ScenarioSchema.statics.findScenarioById = function (
+  id: string
+): Promise<ScenarioDocument | null> {
+  return this.findById(id).lean().exec();
+};
+
+ScenarioSchema.statics.findAll = function (): Promise<ScenarioDocument[]> {
+  return this.find({}).lean().exec();
+};
+
+// Export model
+export const ScenarioModel = model<ScenarioDocument, ScenarioModelType>(
+  "Scenario",
+  ScenarioSchema
+);

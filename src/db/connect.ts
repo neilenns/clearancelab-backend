@@ -1,5 +1,5 @@
+import { ENV } from "#lib/env.js";
 import mongoose from "mongoose";
-import { ENV } from "../lib/env"; // assuming you're using Zod-based env loading
 
 export async function connectToDatabase(): Promise<void> {
   console.log(
