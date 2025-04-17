@@ -1,8 +1,7 @@
 import z from "zod";
 
 const envSchema = z.object({
-  SSL_PRIVATE_KEY_PATH: z.string().default(""),
-  SSL_FULL_CHAIN_PATH: z.string().default(""),
+  LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
   MONGO_DB_CONNECTION_STRING: z
     .string()
     .url({ message: "Invalid MongoDB connection string format" }),
@@ -11,6 +10,8 @@ const envSchema = z.object({
     .enum(["development", "test", "production"])
     .default("development"),
   PORT: z.coerce.number().default(3001),
+  SSL_PRIVATE_KEY_PATH: z.string().default(""),
+  SSL_FULL_CHAIN_PATH: z.string().default(""),
   TRUST_PROXY: z.coerce.number().default(0),
   VERSION: z.string().default("dev"),
   WHITELISTED_DOMAINS: z.string().default("http://localhost:*"),

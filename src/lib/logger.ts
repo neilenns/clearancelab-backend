@@ -14,7 +14,7 @@ const format =
       );
 
 export const logger = winston.createLogger({
-  level: "info",
+  level: ENV.LOG_LEVEL,
   format,
   transports: [new winston.transports.Console()],
 });
