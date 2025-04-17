@@ -1,8 +1,20 @@
-import type { ErrorRequestHandler } from "express";
+import { ErrorRequestHandler } from "express";
 
-const errorHandler: ErrorRequestHandler = (err: Error, _req, res, _next) => {
+const errorHandler: ErrorRequestHandler = (err: Error, _, res, __) => {
   console.error(err.stack);
-  res.status(500).json({ error: err.message });
+
+  // Hide details in production
+  const message =
+    process.env.NODE_ENV === "production"
+      ? "Internal Server Error"
+      : err.message;
+
+  res.status(res.statusCode).json({
+    success: false,
+    status: res.statusCode,
+    message,
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
 };
 
 export default errorHandler;

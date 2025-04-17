@@ -22,9 +22,7 @@ export interface FlightPlanData {
 export interface FlightPlanDocument extends FlightPlanData, Document {}
 
 // Model type for static methods
-export interface FlightPlanModelType extends Model<FlightPlanDocument> {
-  findByDeparture(dep: string): Promise<FlightPlanDocument[]>;
-}
+export type FlightPlanModelType = Model<FlightPlanDocument>;
 
 // Schema definition
 export const FlightPlanSchema = new Schema<

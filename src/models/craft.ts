@@ -14,9 +14,7 @@ export interface CraftData {
 export interface CraftDocument extends CraftData, Document {}
 
 // The model type includes static methods
-export interface CraftModelType extends Model<CraftDocument> {
-  findByController(controllerName: string): Promise<CraftDocument[]>;
-}
+export type CraftModelType = Model<CraftDocument>;
 
 // Schema
 export const CraftSchema = new Schema<CraftDocument, CraftModelType>({
@@ -27,7 +25,7 @@ export const CraftSchema = new Schema<CraftDocument, CraftModelType>({
     type: String,
     trim: true,
     validate: {
-      validator: (v: string) => /^\d{3}.\d{2,3}$/.test(v),
+      validator: (v: string) => /^\d{3}\.\d{2,3}$/.test(v),
       message: (props: ValidatorProps) =>
         `${props.value as string} is not a valid frequency format.`,
     },
@@ -37,14 +35,10 @@ export const CraftSchema = new Schema<CraftDocument, CraftModelType>({
   transponder: {
     type: String,
     trim: true,
-    transponder: {
-      type: String,
-      trim: true,
-      validate: {
-        validator: (v: string) => /^\d{4}$/.test(v),
-        message: (props: ValidatorProps) =>
-          `${props.value as string} is not a valid transponder code.`,
-      },
+    validate: {
+      validator: (v: string) => /^\d{4}$/.test(v),
+      message: (props: ValidatorProps) =>
+        `${props.value as string} is not a valid transponder code.`,
     },
   },
 });
