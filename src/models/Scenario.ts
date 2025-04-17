@@ -1,6 +1,7 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 import "./AirportInfo.js";
+import { AirportInfoData } from "./AirportInfo.js";
 
 // Combined schema data interface
 export interface ScenarioData {
@@ -14,7 +15,9 @@ export interface ScenarioData {
     eq: string;
     bcn?: number;
     dep: string;
+    depAirportInfo?: AirportInfoData;
     dest: string;
+    destAirportInfo?: AirportInfoData;
     spd?: number;
     alt: number;
     rte: string;

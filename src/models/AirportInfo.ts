@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface IAirportInfo extends Document {
+export interface AirportInfoData extends Document {
   airportCode: string;
   icaoCode?: string;
   iataCode?: string;
@@ -39,7 +39,7 @@ const AirportInfoSchema: Schema = new Schema(
   }
 );
 
-export const AirportInfo = mongoose.model<IAirportInfo>(
+export const AirportInfo = mongoose.model<AirportInfoData>(
   "AirportInfo",
   AirportInfoSchema
 );
