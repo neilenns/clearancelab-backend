@@ -6,6 +6,11 @@ export async function connectToDatabase(): Promise<void> {
   logger.info(
     `Connecting to ${ENV.MONGO_DB_NAME} at ${ENV.MONGO_DB_CONNECTION_STRING}`
   );
+
+  mongoose.set("debug", function (collectionName, method, query, _doc) {
+    logger.info(`[${collectionName}.${method}] ${JSON.stringify(query)}`);
+  });
+
   await mongoose.connect(ENV.MONGO_DB_CONNECTION_STRING, {
     dbName: ENV.MONGO_DB_NAME,
   });

@@ -14,25 +14,30 @@ export interface IAirportInfo extends Document {
   countryCode?: string;
 }
 
-const AirportInfoSchema: Schema = new Schema({
-  airportCode: {
-    type: String,
-    required: true,
-    unique: true,
-    index: true,
-    alias: "airport_code",
+const AirportInfoSchema: Schema = new Schema(
+  {
+    airportCode: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+      alias: "airport_code",
+    },
+    icaoCode: { type: String, alias: "code_icao" },
+    iataCode: { type: String, alias: "code_iata" },
+    name: { type: String },
+    elevation: { type: Number },
+    city: { type: String },
+    state: { type: String },
+    longitude: { type: Number },
+    latitude: { type: Number },
+    timezone: { type: String },
+    countryCode: { type: String, alias: "country_code" },
   },
-  icaoCode: { type: String, alias: "code_icao" },
-  iataCode: { type: String, alias: "code_iata" },
-  name: { type: String },
-  elevation: { type: Number },
-  city: { type: String },
-  state: { type: String },
-  longitude: { type: Number },
-  latitude: { type: Number },
-  timezone: { type: String },
-  countryCode: { type: String, alias: "country_code" },
-});
+  {
+    collection: "airportinfo",
+  }
+);
 
 export const AirportInfo = mongoose.model<IAirportInfo>(
   "AirportInfo",
