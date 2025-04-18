@@ -158,7 +158,7 @@ ScenarioSchema.statics.findScenarioById = function (
     return this.findById(id)
       .populate("depAirportInfo") // Populate the departure airport info
       .populate("destAirportInfo") // Populate the destination airport info
-      .lean()
+      .lean({ virtuals: true })
       .exec();
   } catch (error) {
     logger.error(`Error finding scenario with ID ${id}:`, error);
