@@ -2,6 +2,7 @@ import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 import "./AirportInfo.js";
 import { AirportInfoData } from "./AirportInfo.js";
+import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 // Combined schema data interface
 export interface ScenarioData {
@@ -34,8 +35,13 @@ export interface ScenarioData {
   };
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
-  problems?: string[];
-  isValid?: boolean;
+  problems: {
+    level: "info" | "warning" | "error";
+    issue: string;
+    solution: string;
+  }[];
+  isValid: boolean;
+  canClear: boolean;
 }
 
 // Static method interface
@@ -93,8 +99,20 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
         },
       },
     },
-    problems: [{ type: String }],
-    isValid: { type: Boolean },
+    problems: {
+      type: [
+        {
+          level: {
+            type: String,
+            enum: ["info", "warning", "error"],
+            required: true,
+          },
+          issue: { type: String, required: true },
+          solution: { type: String, required: true },
+        },
+      ],
+      default: [],
+    },
   },
   {
     collection: "scenarios",
@@ -121,6 +139,16 @@ ScenarioSchema.virtual("destAirportInfo", {
 // Ensure virtuals are included when converting to JSON or Object
 ScenarioSchema.set("toObject", { virtuals: true });
 ScenarioSchema.set("toJSON", { virtuals: true });
+ScenarioSchema.plugin(mongooseLeanVirtuals);
+
+// Add virtuals for isValid and canClear based on whether there are problems.
+ScenarioSchema.virtual("isValid").get(function () {
+  return !this.problems.some((problem) => problem.level !== "info");
+});
+
+ScenarioSchema.virtual("canClear").get(function () {
+  return !this.problems.some((problem) => problem.level === "error");
+});
 
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
@@ -139,7 +167,7 @@ ScenarioSchema.statics.findScenarioById = function (
 };
 
 ScenarioSchema.statics.findAll = function (): Promise<ScenarioData[]> {
-  return this.find({}).lean().exec();
+  return this.find({}).lean({ virtuals: true }).exec();
 };
 
 // Export model
