@@ -35,13 +35,11 @@ export interface ScenarioData {
   };
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
-  problems?: [
-    {
-      level: "info" | "warning" | "error";
-      issue: string;
-      solution: string;
-    },
-  ];
+  problems: {
+    level: "info" | "warning" | "error";
+    issue: string;
+    solution: string;
+  }[];
   isValid: boolean;
   canClear: boolean;
 }
@@ -101,17 +99,20 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
         },
       },
     },
-    problems: [
-      {
-        level: {
-          type: String,
-          enum: ["info", "warning", "error"],
-          required: true,
+    problems: {
+      type: [
+        {
+          level: {
+            type: String,
+            enum: ["info", "warning", "error"],
+            required: true,
+          },
+          issue: { type: String, required: true },
+          solution: { type: String, required: true },
         },
-        issue: { type: String, required: true },
-        solution: { type: String, required: true },
-      },
-    ],
+      ],
+      default: [],
+    },
   },
   {
     collection: "scenarios",
@@ -142,11 +143,11 @@ ScenarioSchema.plugin(mongooseLeanVirtuals);
 
 // Add virtuals for isValid and canClear based on whether there are problems.
 ScenarioSchema.virtual("isValid").get(function () {
-  return !this.problems?.some((problem) => problem.level !== "info");
+  return !this.problems.some((problem) => problem.level !== "info");
 });
 
 ScenarioSchema.virtual("canClear").get(function () {
-  return !this.problems?.some((problem) => problem.level === "error");
+  return !this.problems.some((problem) => problem.level === "error");
 });
 
 // Static methods
@@ -157,7 +158,7 @@ ScenarioSchema.statics.findScenarioById = function (
     return this.findById(id)
       .populate("depAirportInfo") // Populate the departure airport info
       .populate("destAirportInfo") // Populate the destination airport info
-      .lean({ virtuals: true })
+      .lean()
       .exec();
   } catch (error) {
     logger.error(`Error finding scenario with ID ${id}:`, error);

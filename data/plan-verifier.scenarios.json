@@ -1,98 +1,98 @@
-[
-  {
-    "_id": {
-      "$oid": "68017ac6c53a06fe672d5188"
-    },
-    "plan": {
-      "pilotName": "Dakota",
-      "vatsimId": 1400467,
-      "cid": 585,
-      "aid": "ASA223",
-      "typ": "A320",
-      "eq": "L",
-      "bcn": 2000,
-      "dep": "KPDX",
-      "dest": "CYEG",
-      "spd": 200,
-      "alt": 350,
-      "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-      "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-      "airportConditions": "West flow. Altimeter 29.90. Departure is online."
-    },
-    "isValid": true,
-    "craft": {
-      "telephony": "Alaska 223",
-      "controllerName": "Portland Ground",
-      "route": "the LAVAA6 departure, Yakima transition, then as filed",
-      "altitude": "Climb via SID except maintain 7000",
-      "frequency": "124.35",
-      "transponder": "2000"
-    }
+[{
+  "_id": {
+    "$oid": "6802cef1cd28e1a43a89e8d9"
   },
-  {
-    "_id": {
-      "$oid": "68017ad7c53a06fe672d5189"
-    },
-    "plan": {
-      "pilotName": "Quinn",
-      "vatsimId": 1531877,
-      "cid": 925,
-      "aid": "ASA17",
-      "typ": "B739",
-      "eq": "L",
-      "bcn": 6660,
-      "dep": "KPDX",
-      "dest": "KLAS",
-      "spd": 225,
-      "alt": 350,
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "airportConditions": "West flow. Altimeter 29.90. Departure is online."
-    },
-    "isValid": true,
-    "craft": {
-      "telephony": "Alaska 17",
-      "controllerName": "Portland Ground",
-      "route": "the CASCD3 departure, then as filed",
-      "altitude": "Climb via SID except maintain 7000",
-      "frequency": "124.35",
-      "transponder": "6660"
-    }
+  "plan": {
+    "pilotName": "Jordan",
+    "vatsimId": 1914093,
+    "cid": 353,
+    "aid": "ASA1160",
+    "typ": "B738M",
+    "eq": "X",
+    "bcn": 6660,
+    "dep": "KPDX",
+    "dest": "KLAX",
+    "spd": 225,
+    "alt": 370,
+    "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+    "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
   },
-  {
-    "_id": {
-      "$oid": "68017ad7c53a06fe672d5189"
-    },
-    "plan": {
-      "pilotName": "Jordan",
-      "vatsimId": 1914093,
-      "cid": 353,
-      "aid": "ASA1160",
-      "typ": "B738M",
-      "eq": "X",
-      "bcn": 6660,
-      "dep": "KPDX",
-      "dest": "KLAX",
-      "spd": 225,
-      "alt": 370,
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "airportConditions": "West flow. Altimeter 29.90. Departure is online."
-    },
-    "isValid": true,
-    "craft": {
-      "telephony": "Alaska 1160",
-      "controllerName": "Portland Ground",
-      "route": "the CASCD3 departure, then as filed",
-      "altitude": "Climb via SID except maintain 7000",
-      "transponder": "6660"
-    },
-    "problems": [
-      {
-        "level": "warning",
-        "issue": "The equipment suffix '/X' is not valid for this aircraft type.",
-        "solution": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
-      }
-    ]
-  }
-]
+  "isValid": true,
+  "craft": {
+    "telephony": "Alaska 1160",
+    "controllerName": "Portland Ground",
+    "route": "the CASCD3 departure, then as filed",
+    "altitude": "Climb via SID except maintain 7000",
+    "transponder": "6660"
+  },
+  "problems": [
+    {
+      "level": "warning",
+      "issue": "The equipment suffix '/X' is not valid for this aircraft type.",
+      "solution": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6802cf01cd28e1a43a89e8da"
+  },
+  "plan": {
+    "pilotName": "Quinn",
+    "vatsimId": 1531877,
+    "cid": 925,
+    "aid": "ASA17",
+    "typ": "B739",
+    "eq": "L",
+    "bcn": 6660,
+    "dep": "KPDX",
+    "dest": "KLAS",
+    "spd": 225,
+    "alt": 350,
+    "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+    "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
+  },
+  "isValid": true,
+  "craft": {
+    "telephony": "Alaska 17",
+    "controllerName": "Portland Ground",
+    "route": "the CASCD3 departure, then as filed",
+    "altitude": "Climb via SID except maintain 7000",
+    "frequency": "124.35",
+    "transponder": "6660"
+  },
+  "problems": []
+},
+{
+  "_id": {
+    "$oid": "6802cf0fcd28e1a43a89e8db"
+  },
+  "plan": {
+    "pilotName": "Dakota",
+    "vatsimId": 1400467,
+    "cid": 585,
+    "aid": "ASA223",
+    "typ": "A320",
+    "eq": "L",
+    "bcn": 2000,
+    "dep": "KPDX",
+    "dest": "CYEG",
+    "spd": 200,
+    "alt": 350,
+    "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+    "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
+  },
+  "isValid": true,
+  "craft": {
+    "telephony": "Alaska 223",
+    "controllerName": "Portland Ground",
+    "route": "the LAVAA6 departure, Yakima transition, then as filed",
+    "altitude": "Climb via SID except maintain 7000",
+    "frequency": "124.35",
+    "transponder": "2000"
+  },
+  "problems": []
+}]
