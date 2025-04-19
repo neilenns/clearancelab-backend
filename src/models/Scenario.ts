@@ -171,7 +171,6 @@ ScenarioSchema.statics.findAll = function (
 ): Promise<ScenarioData[]> {
   const projection = summary
     ? {
-        title: 1,
         isValid: 1,
         canClear: 1,
         "plan.dep": 1,
