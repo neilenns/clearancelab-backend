@@ -47,7 +47,7 @@ export interface ScenarioData {
 // Static method interface
 export interface ScenarioModelType extends Model<ScenarioData> {
   findScenarioById(id: string): Promise<ScenarioData | null>;
-  findAll(): Promise<ScenarioData[]>;
+  findAll(summary: boolean): Promise<ScenarioData[]>;
 }
 
 // Define schema
@@ -166,8 +166,25 @@ ScenarioSchema.statics.findScenarioById = function (
   }
 };
 
-ScenarioSchema.statics.findAll = function (): Promise<ScenarioData[]> {
-  return this.find({}).lean({ virtuals: true }).exec();
+ScenarioSchema.statics.findAll = function (
+  summary: boolean
+): Promise<ScenarioData[]> {
+  const projection = summary
+    ? {
+        title: 1,
+        isValid: 1,
+        canClear: 1,
+        "plan.dep": 1,
+        "plan.dest": 1,
+        "plan.aid": 1,
+      }
+    : undefined;
+
+  return this.find({}, projection)
+    .populate("depAirportInfo") // Populate the departure airport info
+    .populate("destAirportInfo") // Populate the destination airport info
+    .lean({ virtuals: true })
+    .exec();
 };
 
 // Export model
