@@ -169,17 +169,19 @@ ScenarioSchema.statics.findScenarioById = function (
 ScenarioSchema.statics.findAll = function (
   summary: boolean
 ): Promise<ScenarioData[]> {
-  const projection = summary
-    ? {
-        isValid: 1,
-        canClear: 1,
-        "plan.dep": 1,
-        "plan.dest": 1,
-        "plan.aid": 1,
-      }
-    : undefined;
+  const projection = {
+    isValid: 1,
+    canClear: 1,
+    "plan.dep": 1,
+    "plan.dest": 1,
+    "plan.aid": 1,
+  };
 
-  return this.find({}, projection)
+  if (summary) {
+    return this.find({}, projection).lean().exec();
+  }
+
+  return this.find({})
     .populate("depAirportInfo") // Populate the departure airport info
     .populate("destAirportInfo") // Populate the destination airport info
     .lean({ virtuals: true })
