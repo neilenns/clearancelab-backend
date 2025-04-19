@@ -19,12 +19,7 @@ router.get(
     try {
       const summary = req.query.summary === "true";
 
-      // Get partial data if summary was requested.
-      const projection = summary
-        ? { title: 1, isValid: 1, "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 }
-        : undefined;
-
-      const scenarios = await ScenarioModel.find({}, projection).lean();
+      const scenarios = await ScenarioModel.findAll(summary);
 
       res.json(scenarios);
     } catch (err) {
