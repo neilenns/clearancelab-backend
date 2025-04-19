@@ -16,7 +16,7 @@
     "alt": 370,
     "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
     "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
+    "airportConditions": "West flow. Altimeter 29.90. Departure is offline."
   },
   "isValid": true,
   "craft": {
@@ -52,7 +52,7 @@
     "alt": 350,
     "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
     "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
+    "airportConditions": "West flow. Altimeter 29.90. Portland Approach is online."
   },
   "isValid": true,
   "craft": {
@@ -83,7 +83,7 @@
     "alt": 350,
     "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
     "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-    "airportConditions": "West flow. Altimeter 29.90. Departure is online."
+    "airportConditions": "West flow. Altimeter 29.90. Portland Approach is online."
   },
   "isValid": true,
   "craft": {
@@ -95,4 +95,96 @@
     "transponder": "2000"
   },
   "problems": []
+},
+{
+  "_id": {
+    "$oid": "680313113b56b8441f25bee0"
+  },
+  "plan": {
+    "pilotName": "Avery",
+    "vatsimId": 1719339,
+    "cid": 585,
+    "aid": "N357JK",
+    "typ": "H/B78X",
+    "eq": "L",
+    "bcn": 2247,
+    "dep": "KPDX",
+    "dest": "KPHX",
+    "spd": 200,
+    "alt": 390,
+    "rte": "WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
+    "raw": "N357JK  H/B78X/L  2247  KPDX - KPHX  390  WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
+    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is offline."
+  },
+  "craft": {
+    "telephony": "N357JK Heavy",
+    "controllerName": "Portland Ground",
+    "route": "the WHAMY5 departure, then as filed",
+    "altitude": "Climb via SID except maintain 7000"
+  },
+  "problems": []
+},
+{
+  "_id": {
+    "$oid": "6803137a3b56b8441f25bee2"
+  },
+  "plan": {
+    "pilotName": "Skyler",
+    "vatsimId": 1842516,
+    "cid": 585,
+    "aid": "ASA498",
+    "typ": "B38M",
+    "eq": "L",
+    "bcn": 7420,
+    "dep": "KPDX",
+    "dest": "PHNL",
+    "spd": 200,
+    "alt": 360,
+    "rte": "ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
+    "rmk": "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
+    "raw": "ASA498  B38M/L  7420  KPDX - PHNL  360  ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
+    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is online."
+  },
+  "craft": {
+    "telephony": "Alaska 498",
+    "controllerName": "Portland Ground",
+    "route": "the PTLD2 departure, then as filed",
+    "altitude": "Climb via SID except maintain 6000",
+    "frequency": "124.35"
+  },
+  "problems": []
+},
+{
+  "_id": {
+    "$oid": "680315453b56b8441f25bee4"
+  },
+  "plan": {
+    "pilotName": "Emery",
+    "vatsimId": 1719339,
+    "cid": 585,
+    "aid": "FFT1522",
+    "typ": "A320",
+    "eq": "S",
+    "bcn": 1655,
+    "dep": "KPDX",
+    "dest": "KLAX",
+    "spd": 200,
+    "alt": 350,
+    "rte": "KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
+    "raw": "FFT1522  A320/S  1655  KPDX - KLAX  350  KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
+    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is offline.",
+    "rmk": "NEW PILOT"
+  },
+  "problems": [
+    {
+      "level": "error",
+      "issue": "The route is nonsense.",
+      "solution": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2."
+    },
+    {
+      "level": "warning",
+      "issue": "The equipment suffix '/S' is not appropriate for the A320.",
+      "solution": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+    }
+  ]
 }]
