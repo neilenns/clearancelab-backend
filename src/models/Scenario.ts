@@ -166,20 +166,23 @@ ScenarioSchema.statics.findScenarioById = function (
   }
 };
 
-ScenarioSchema.statics.findAll = function (
+ScenarioSchema.statics.findAll = async function (
   summary: boolean
-): Promise<ScenarioData[]> {
-  const projection = summary
-    ? {
-        isValid: 1,
-        canClear: 1,
-        "plan.dep": 1,
-        "plan.dest": 1,
-        "plan.aid": 1,
-      }
-    : undefined;
+): Promise<Partial<ScenarioData>[]> {
+  if (summary) {
+    // Results has to include "problems" so isValid and canClear can be calculated.
+    const results = await this.find({})
+      .select(
+        "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt problems"
+      )
+      .lean({ virtuals: ["isValid", "canClear"] })
+      .exec();
 
-  return this.find({}, projection)
+    // Strip out the problems field from the results after it was used to calculate isValid and canClear.
+    return results.map(({ problems: _problems, ...rest }) => rest);
+  }
+
+  return this.find({})
     .populate("depAirportInfo") // Populate the departure airport info
     .populate("destAirportInfo") // Populate the destination airport info
     .lean({ virtuals: true })
